@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { createContext, useState } from "react";
+import ToDoList from "./pages/ToDoList";
+import CreateTask from "./pages/CreateTask";
+import NavBar from "./components/NavBar";
+import { toDoListRoute, createTaskRoute } from "./utils/constants";
+import "./styles.css";
 
-function App() {
+export const TasksContext = createContext();
+
+export default function App() {
+  const [tasks, setTasks] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <TasksContext.Provider
+        value={{
+          tasks,
+          setTasks
+        }}
+      >
+        <NavBar />
+        <Switch>
+          <Route exact path={toDoListRoute}>
+            <ToDoList />
+          </Route>
+          <Route exact path={createTaskRoute}>
+            <CreateTask />
+          </Route>
+        </Switch>
+      </TasksContext.Provider>
+    </Router>
   );
 }
-
-export default App;
