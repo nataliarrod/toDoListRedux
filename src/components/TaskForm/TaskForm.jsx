@@ -1,15 +1,16 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { v4 as uuid } from 'uuid';
+import { useDispatch } from 'react-redux';
 import { Grid, TextField, Button } from "@material-ui/core";
-import { TasksContext } from "../../App";
+import { v4 as uuid } from 'uuid';
+import { addTask } from '../../redux/actions/tasks.actions';
 import useStyles from "./styles";
 
 const TaskForm = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const { tasks, setTasks } = useContext(TasksContext);
   const history = useHistory();
 
   const handleSubmit = () => {
@@ -18,7 +19,7 @@ const TaskForm = () => {
       name,
       description,
     };
-    setTasks([...tasks, newTask]);
+    dispatch(addTask(newTask));
     history.push("/");
   };
 

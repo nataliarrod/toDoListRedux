@@ -1,16 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { Grid, List, IconButton, Link } from "@material-ui/core";
 import { AddBox } from "@material-ui/icons";
-import { TasksContext } from "../../App";
 import { createTaskRoute } from "../../utils/constants";
 import Task from "../Task";
 import useStyles from "./styles";
 
 const ToDoList = () => {
   const classes = useStyles();
-  
-  const { tasks } = useContext(TasksContext);
+  const tasks = useSelector(state => state.tasksReducer.tasks);
   const history = useHistory();
 
   const addTask = () => {

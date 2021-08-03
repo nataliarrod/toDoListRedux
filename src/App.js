@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import React, { createContext, useState } from "react";
+import React, { createContext} from "react";
 import ToDoList from "./pages/ToDoList";
 import CreateTask from "./pages/CreateTask";
 import NavBar from "./components/NavBar";
@@ -9,16 +9,9 @@ import "./styles.css";
 export const TasksContext = createContext();
 
 export default function App() {
-  const [tasks, setTasks] = useState([]);
 
   return (
     <Router>
-      <TasksContext.Provider
-        value={{
-          tasks,
-          setTasks
-        }}
-      >
         <NavBar />
         <Switch>
           <Route exact path={toDoListRoute}>
@@ -28,7 +21,6 @@ export default function App() {
             <CreateTask />
           </Route>
         </Switch>
-      </TasksContext.Provider>
     </Router>
   );
 }
